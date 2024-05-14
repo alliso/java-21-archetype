@@ -9,12 +9,10 @@ import io.cucumber.docstring.DocString;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public class HttpUtils {
   @LocalServerPort private int port;
   private Response response;

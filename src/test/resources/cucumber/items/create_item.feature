@@ -9,4 +9,20 @@ Feature: Create items
   }
     """
     Then I receive status code 204
-    And Item with name "pepino" is stored in db
+    And Document is stored in collection "items"
+    """json
+    {"name":  "pepino"}
+    """
+    
+  Scenario: Create new item using kafka
+    When I produce a message in topic "items.topic"
+    """json
+    {
+    "name": "tomate",
+    "price": 2.2
+  }
+    """
+    Then Document is stored in collection "items"
+    """json
+    {"name":  "tomate"}
+    """
