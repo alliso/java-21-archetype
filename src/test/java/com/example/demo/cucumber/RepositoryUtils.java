@@ -3,27 +3,23 @@ package com.example.demo.cucumber;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 
-import com.example.demo.infrastructure.mongo.repository.dbo.ItemMongoRepositoryDBO;
 import io.cucumber.docstring.DocString;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Query;
 
 public class RepositoryUtils {
-  private final ItemMongoRepositoryDBO itemMongoRepositoryDBO;
   private final MongoTemplate mongoTemplate;
 
-  public RepositoryUtils(ItemMongoRepositoryDBO itemMongoRepositoryDBO, MongoTemplate mongoTemplate) {
-    this.itemMongoRepositoryDBO = itemMongoRepositoryDBO;
+  public RepositoryUtils(MongoTemplate mongoTemplate) {
     this.mongoTemplate = mongoTemplate;
   }
 
   @Given("I store in {string} db")
-  public void storeItem(String collection, DocString docString) throws IOException {
+  public void storeItem(String collection, DocString docString) {
     mongoTemplate.save(docString.getContent(), collection);
   }
 

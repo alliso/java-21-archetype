@@ -3,6 +3,7 @@ package com.example.demo.infrastructure.kafka.listeners;
 import com.example.demo.application.CreateItem;
 import com.example.demo.infrastructure.kafka.mapper.ItemMapper;
 import com.example.demo.infrastructure.kafka.model.ItemPayload;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -26,7 +27,7 @@ public class ItemListener {
   }
 
   @KafkaListener(topics = "items.topic", groupId = "items.group")
-  public void listen(ConsumerRecord<String, String> consumerRecord) throws Exception {
+  public void listen(ConsumerRecord<String, String> consumerRecord) throws JsonProcessingException {
     ItemPayload payload = mapper.readValue(consumerRecord.value(), ItemPayload.class);
     createItem.apply(itemMapper.apply(payload));
   }
